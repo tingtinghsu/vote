@@ -1,7 +1,7 @@
 <div><%= flash[:notice] %></div>
 <div>
-    <h1>Hi! 歡迎來到投票系統</h1>
-    <a href="/candidates/new">Add Candidate</a>    
+    <h1>Hi! 歡迎來到投票系統</h1>   
+    <%= link_to 'Add Candidate', new_candidate_path %>
     <table>
         <tr>
           <td>Name</td>
@@ -13,10 +13,11 @@
       
         <% @candidates.each do |candidate| %>
         <tr>
-          <td><a href="#"><%=candidate.name %></a></td>
+          <td><%= link_to candidate.name, candidate_path(candidate.id) %></td>
           <td><%=candidate.party %></td>
           <td><%=candidate.age %></td>
-          <td><%=candidate.politics %></td>
+          <td><%= link_to 'update', edit_candidate_path(candidate.id)%></td>
+          <td><%= link_to 'delete', candidate_path(candidate.id), method: 'delete', data: {confirm: 'are you sure?!'}%></td>
           <td>Action</td>
         </tr>
         <% end %>
