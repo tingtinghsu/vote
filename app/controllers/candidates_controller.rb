@@ -46,6 +46,15 @@ class CandidatesController < ApplicationController
         redirect_to '/candidates'         
 
     end
+
+    def vote
+        @candidate = Candidate.find_by(id: params[:id])
+        @candidate.vote_logs.create(ip_address: request.remote_ip)
+
+        flash[:notice] = "Voted!"
+        redirect_to '/candidates' 
+    end
+
     private
     def clean_params
         params.require(:candidate).permit(:name, :party, :age, :politics)
